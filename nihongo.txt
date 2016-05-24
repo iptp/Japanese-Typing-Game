@@ -1,0 +1,14 @@
+あ;a
+え;e
+い;i
+お;o
+う;u
+か;ka
+き;ki
+く;ku
+け;ke
+こ;ko
+にほんご;nihongo
+はなす;hanasu
+こども;kodomo
+べんきょう;benkyou
