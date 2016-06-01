@@ -6,6 +6,7 @@ public class JapaneseTyping extends World {
     public static int HEIGHT = 16;
     public static int CELLSIZE = 30;
     public static int ENDLINE = HEIGHT - 3;
+    public static int lives = 3;
     
     private ArrayList<Word> list_of_words;
     private int wordIndex;
@@ -18,10 +19,11 @@ public class JapaneseTyping extends World {
         super(WIDTH, HEIGHT, CELLSIZE);
         Greenfoot.setSpeed(50);
         list_of_words = ReadFile.getListOfWords("nihongo.txt");
-        wordIndex = 0;
+        wordIndex = getNewWordIndex();
         addWordToScreen(wordIndex);
         typing = "";
         score = 0;
+        lives = 3;
     }
     
     public void started() {
@@ -32,6 +34,7 @@ public class JapaneseTyping extends World {
     
     public void act() {
         showText("Score: " + score, WIDTH-3, 0);
+        showText("Lives: " + lives, 2, 0);
         showText(typing, WIDTH/2, HEIGHT - 2);
         
         String key = Greenfoot.getKey();
@@ -49,13 +52,22 @@ public class JapaneseTyping extends World {
             
             if(checkCorrectAnswer(typing)) {
                 score += list_of_words.get(wordIndex).getScore();
-                removeObject(list_of_words.get(wordIndex));
-                wordIndex++;
-                checkWin();
-                addWordToScreen(wordIndex);
-                typing = "";
+                changeWordOnScreen();
             }
         }
+    }
+    
+    public void changeWordOnScreen() {
+        removeObject(list_of_words.get(wordIndex));
+        list_of_words.remove(wordIndex);
+        wordIndex = getNewWordIndex();
+        checkWin();
+        addWordToScreen(wordIndex);
+        typing = "";
+    }
+    
+    public int getNewWordIndex() {
+        return Greenfoot.getRandomNumber(list_of_words.size());
     }
     
     public void addWordToScreen(int index) {

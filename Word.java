@@ -22,17 +22,22 @@ public class Word extends Actor
         setImage(bg);
     }
     
-    public void act() {
-        this.drawInterval++;
-        while(drawInterval > this.delay) {
-            setLocation(getX(), getY()+1);
-            if(getY() == JapaneseTyping.ENDLINE) {
-                JapaneseTyping w = getWorldOfType(JapaneseTyping.class);
-                w.endGame();
+        public void act() {
+            this.drawInterval++;
+            while(drawInterval > this.delay) {
+                setLocation(getX(), getY()+1);
+                if(getY() == JapaneseTyping.ENDLINE) {
+                    JapaneseTyping w = getWorldOfType(JapaneseTyping.class);
+                    w.lives--;
+                    if(w.lives == 0) {
+                        w.endGame();
+                    } else {
+                        w.changeWordOnScreen();
+                    }
+                }
+                drawInterval -= this.delay;
             }
-            drawInterval -= this.delay;
-        }
-    }    
+        }    
     
     public String getBack() {
         return this.back;
