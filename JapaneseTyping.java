@@ -1,5 +1,6 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class JapaneseTyping extends World {
     public static int WIDTH = 14;
@@ -23,6 +24,9 @@ public class JapaneseTyping extends World {
     
     public void started() {
         GreenfootImage bg = new GreenfootImage(WIDTH*CELLSIZE, HEIGHT*CELLSIZE);
+        bg.setColor(Color.WHITE);
+        bg.fill();
+        
         bg.drawLine(0, ENDLINE*CELLSIZE, WIDTH*CELLSIZE, ENDLINE*CELLSIZE);
         setBackground(bg);
     }
